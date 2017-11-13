@@ -140,8 +140,12 @@ export const executeWithOptions = async (options: CLIOptions): Promise<CodegenOu
 
   if (fs.existsSync(configPath)) {
     console.log('Loading config file from: ', configPath);
-    config = JSON.parse(fs.readFileSync(configPath).toString()) as GqlGenConfig;
+    config = { ...config, ...(JSON.parse(fs.readFileSync(configPath).toString())) } as GqlGenConfig;
     debugLog(`[executeWithOptions] Got project config JSON: `, config);
+  }
+
+  if (!config.generatorConfig) {
+    config.generatorConfig = {};
   }
 
   // if (project && project !== '') {

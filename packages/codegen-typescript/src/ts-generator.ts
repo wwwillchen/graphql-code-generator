@@ -1,13 +1,12 @@
 import {
   prepareSchemaForDocumentsOnly,
-  GeneratorConfig,
   CodegenOutput,
   Settings,
   Document,
   debugLog,
-  SchemaTemplateContext
+  SchemaTemplateContext,
+  GqlGenConfig,
 } from 'graphql-codegen-common';
-import { TypeScriptCodegenConfig } from './types';
 import { handleMultiple, MULTIPLE_FILES_TEMPLATES } from './templates/typescript-multi-file';
 import * as moment from 'moment';
 import { handleSingle, SINGLE_FILE_TEMPLATE } from './templates/typescript-single-file';
@@ -15,12 +14,12 @@ import { initHandlebarsCodegenHelpers } from 'codegen-handlebars-utils';
 import { TS_PRIMITIVES } from './constants';
 import * as Handlebars from 'handlebars';
 
-export function compile(config: TypeScriptCodegenConfig & GeneratorConfig, settings: Settings, document: Document, templateContext: SchemaTemplateContext): CodegenOutput[] {
+export function compile(config: GqlGenConfig, settings: Settings, document: Document, templateContext: SchemaTemplateContext): CodegenOutput[] {
   const schemaContext = (!settings.generateSchema) ? prepareSchemaForDocumentsOnly(templateContext) : templateContext;
 
   let templates = SINGLE_FILE_TEMPLATE;
 
-  if (config.multipleFiles) {
+  if (config.generatorConfig.multipleFiles) {
     templates = MULTIPLE_FILES_TEMPLATES;
   }
 
@@ -34,11 +33,11 @@ export function compile(config: TypeScriptCodegenConfig & GeneratorConfig, setti
 
   const compilationContext = {
     currentTime: moment().format(),
-    config,
+    config: config.generatorConfig,
     ...schemaContext,
   };
 
-  if (config.multipleFiles) {
+  if (config.generatorConfig.multipleFiles) {
     return handleMultiple(compilationContext, document);
   } else {
     return handleSingle(compilationContext, document, (config.out === './' || config.out === '') ? './types.d.ts' : config.out);

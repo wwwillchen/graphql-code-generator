@@ -14,12 +14,12 @@ export interface GeneratorConfig {
 }
 
 export interface GqlGenConfig {
-  generatorConfig?: { [configName: string]: any };
-  out: string;
+  generatorConfig?: GeneratorConfig;
+  out?: string;
 }
 
 export type OutputProcessorFn =
-  (generatorConfig: GeneratorConfig, codegenSettings: Settings, document: Document, schemaTemplateContext: SchemaTemplateContext) => CodegenOutput[];
+  (generatorConfig: GqlGenConfig, codegenSettings: Settings, document: Document, schemaTemplateContext: SchemaTemplateContext) => CodegenOutput[];
 
 export interface AstNode {
   directives: DirectiveUseMap;
