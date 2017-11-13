@@ -13,6 +13,7 @@ import { handleSingle, SINGLE_FILE_TEMPLATE } from './templates/typescript-singl
 import { initHandlebarsCodegenHelpers } from 'codegen-handlebars-utils';
 import { TS_PRIMITIVES } from './constants';
 import * as Handlebars from 'handlebars';
+import { TypeScriptGeneratorConfig } from './types';
 
 export function compile(config: GqlGenConfig, settings: Settings, document: Document, templateContext: SchemaTemplateContext): CodegenOutput[] {
   const schemaContext = (!settings.generateSchema) ? prepareSchemaForDocumentsOnly(templateContext) : templateContext;
@@ -33,7 +34,7 @@ export function compile(config: GqlGenConfig, settings: Settings, document: Docu
 
   const compilationContext = {
     currentTime: moment().format(),
-    config: config.generatorConfig,
+    config: config.generatorConfig as TypeScriptGeneratorConfig,
     ...schemaContext,
   };
 
