@@ -1,8 +1,7 @@
 import { getNamedType, GraphQLArgument } from 'graphql';
-import { Argument } from '../types';
+import { debugLog, Argument } from 'graphql-codegen-common';
 import { resolveType } from './resolve-type';
 import { resolveTypeIndicators } from './resolve-type-indicators';
-import { debugLog } from '../debugging';
 import { getDirectives } from '../utils/get-directives';
 
 export function resolveArguments(schema, args: GraphQLArgument[]): Argument[] {

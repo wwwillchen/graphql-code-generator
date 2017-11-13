@@ -1,0 +1,30 @@
+{
+  "name": "codegen-typescript-generator",
+  "version": "0.8.14",
+  "description": "TypeScript Typings template for GraphQL Code Generator",
+  "license": "MIT",
+  "scripts": {
+    "test": "",
+    "build": "webpack"
+  },
+  "dependencies": {
+    "@types/handlebars": "^4.0.36",
+    "@types/moment": "^2.13.0",
+    "graphql-codegen-common": "0.8.14",
+    "handlebars": "^4.0.11",
+    "moment": "^2.19.2",
+    "codegen-handlebars-utils": "0.8.14"
+  },
+  "devDependencies": {
+    "awesome-typescript-loader": "^3.2.1",
+    "raw-loader": "^0.5.1",
+    "typescript": "^2.4.1",
+    "webpack": "^3.2.0",
+    "webpack-node-externals": "^1.6.0"
+  },
+  "main": "./dist/index.js",
+  "typings": "dist/index.d.ts",
+  "typescript": {
+    "definition": "dist/index.d.ts"
+  }
+}

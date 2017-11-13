@@ -1,7 +1,6 @@
 import { GraphQLInterfaceType, GraphQLSchema } from 'graphql';
-import { Interface } from '../types';
+import { Interface, debugLog } from 'graphql-codegen-common';
 import { resolveFields } from './transform-fields';
-import { debugLog } from '../debugging';
 import { getDirectives } from '../utils/get-directives';
 
 export function transformInterface(schema: GraphQLSchema, gqlInterface: GraphQLInterfaceType): Interface {

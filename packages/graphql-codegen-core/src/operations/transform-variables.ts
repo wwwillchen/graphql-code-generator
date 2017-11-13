@@ -1,7 +1,6 @@
 import { getNamedType, GraphQLSchema, OperationDefinitionNode, typeFromAST, VariableDefinitionNode } from 'graphql';
-import { Variable } from '../types';
+import { debugLog, Variable } from 'graphql-codegen-common';
 import { resolveType } from '../schema/resolve-type';
-import { debugLog } from '../debugging';
 import { resolveTypeIndicators } from '../schema/resolve-type-indicators';
 
 export function transformVariables(schema: GraphQLSchema, definitionNode: OperationDefinitionNode): Variable[] {

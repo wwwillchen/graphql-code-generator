@@ -1,6 +1,5 @@
 import { GraphQLEnumType, GraphQLEnumValue, GraphQLSchema } from 'graphql';
-import { Enum, EnumValue } from '../types';
-import { debugLog } from '../debugging';
+import { Enum, EnumValue, debugLog } from 'graphql-codegen-common';
 import { getDirectives } from '../utils/get-directives';
 
 export function transformGraphQLEnum(schema: GraphQLSchema, graphqlEnum: GraphQLEnumType): Enum {

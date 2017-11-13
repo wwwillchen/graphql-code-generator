@@ -1,8 +1,8 @@
 import {
   isFragmentSpreadNode,
   SelectionSetFieldNode, SelectionSetFragmentSpread, SelectionSetInlineFragment,
-  SelectionSetItem, isInlineFragmentNode, isFieldNode
-} from '../types';
+  SelectionSetItem, isInlineFragmentNode, isFieldNode, debugLog,
+} from 'graphql-codegen-common';
 import {
   FieldNode, FragmentSpreadNode, getNamedType, GraphQLSchema, GraphQLType, InlineFragmentNode, SelectionNode,
   SelectionSetNode, typeFromAST
@@ -10,7 +10,6 @@ import {
 import { FIELD, FRAGMENT_SPREAD, INLINE_FRAGMENT } from 'graphql/language/kinds';
 import { getFieldDef } from '../utils/get-field-def';
 import { resolveType } from '../schema/resolve-type';
-import { debugLog } from '../debugging';
 import { resolveTypeIndicators } from '../schema/resolve-type-indicators';
 
 export function separateSelectionSet(selectionSet: SelectionSetItem[]): any {

@@ -1,6 +1,5 @@
 import { GraphQLScalarType, GraphQLSchema } from 'graphql';
-import { Scalar } from '../types';
-import { debugLog } from '../debugging';
+import { Scalar, debugLog } from 'graphql-codegen-common';
 import { getDirectives } from '../utils/get-directives';
 
 export function transformScalar(schema: GraphQLSchema, scalar: GraphQLScalarType): Scalar {

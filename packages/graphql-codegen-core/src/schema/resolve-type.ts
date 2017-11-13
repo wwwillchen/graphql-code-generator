@@ -1,5 +1,5 @@
 import { getNamedType, GraphQLInputType, GraphQLOutputType, GraphQLType } from 'graphql';
-import { debugLog } from '../debugging';
+import { debugLog } from 'graphql-codegen-common';
 
 export interface ResolvedType {
   name: string;

@@ -1,7 +1,6 @@
 import { FragmentDefinitionNode, GraphQLSchema, typeFromAST } from 'graphql';
-import { Fragment } from '../types';
+import { debugLog, Fragment } from 'graphql-codegen-common';
 import { buildSelectionSet, separateSelectionSet } from './build-selection-set';
-import { debugLog } from '../debugging';
 import { print } from 'graphql/language/printer';
 import { getDirectives } from '../utils/get-directives';
 

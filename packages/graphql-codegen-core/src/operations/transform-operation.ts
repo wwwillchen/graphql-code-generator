@@ -1,9 +1,8 @@
 import { GraphQLObjectType, GraphQLSchema, OperationDefinitionNode } from 'graphql';
-import { Operation } from '../types';
+import { debugLog, Operation } from 'graphql-codegen-common';
 import { getRoot } from '../utils/get-root';
 import { buildSelectionSet, separateSelectionSet } from './build-selection-set';
 import { transformVariables } from './transform-variables';
-import { debugLog } from '../debugging';
 import { print } from 'graphql/language/printer';
 import { getDirectives } from '../utils/get-directives';
 

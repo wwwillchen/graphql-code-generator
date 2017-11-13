@@ -27,6 +27,7 @@
     "change-case": "^3.0.1",
     "common-tags": "^1.4.0",
     "graphql-codegen-compiler": "0.8.14",
+    "graphql-codegen-common": "0.8.14",
     "graphql-codegen-core": "0.8.14",
     "graphql-codegen-generators": "0.8.14",
     "handlebars": "^4.0.10",

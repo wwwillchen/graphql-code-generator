@@ -1,4 +1,4 @@
-import { debugLog } from 'graphql-codegen-core';
+import { debugLog } from 'graphql-codegen-common';
 
 export function cleanTemplateComments(template: string, debugFilename: string = ''): string {
   debugLog(`[cleanTemplateComments] called, looking for magic comments in ${debugFilename}...`);

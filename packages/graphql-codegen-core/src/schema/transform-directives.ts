@@ -1,5 +1,5 @@
 import { GraphQLDirective, DirectiveLocation, GraphQLSchema } from 'graphql';
-import { Directive } from '../types';
+import { Directive } from 'graphql-codegen-common';
 import { resolveArguments } from './resolve-arguments';
 
 export function transformDirectives(schema: GraphQLSchema, directives: GraphQLDirective[]): Directive[] {

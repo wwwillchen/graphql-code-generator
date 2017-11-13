@@ -1,10 +1,9 @@
-import { getNamedType, GraphQLField, GraphQLFieldMap, GraphQLSchema, isLeafType } from 'graphql';
+import { getNamedType, GraphQLField, GraphQLFieldMap, GraphQLSchema } from 'graphql';
 import { objectMapToArray } from '../utils/object-map-to-array';
-import { Field } from '../types';
+import { Field, debugLog } from 'graphql-codegen-common';
 import { resolveType } from './resolve-type';
 import { resolveArguments } from './resolve-arguments';
 import { resolveTypeIndicators } from './resolve-type-indicators';
-import { debugLog } from '../debugging';
 import { getDirectives } from '../utils/get-directives';
 
 export function resolveFields(schema: GraphQLSchema, rawFields: GraphQLFieldMap<any, any>): Field[] {

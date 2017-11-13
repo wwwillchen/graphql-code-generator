@@ -1,29 +1,20 @@
-import * as commander from 'commander';
 import { introspectionFromFile } from './loaders/introspection-from-file';
 import { introspectionFromUrl } from './loaders/introspection-from-url';
 import { schemaFromExport } from './loaders/schema-from-export';
 import { documentsFromGlobs } from './utils/documents-glob';
+import compileTemplate from 'graphql-codegen-compiler';
 import {
-  compileTemplate,
-  FileOutput,
-  ALLOWED_CUSTOM_TEMPLATE_EXT,
-} from 'graphql-codegen-compiler';
-import {
-  debugLog,
   introspectionToGraphQLSchema,
   schemaToTemplateContext,
   transformDocument
 } from 'graphql-codegen-core';
 import { loadDocumentsSources } from './loaders/document-loader';
+import { CodegenOutput, debugLog, GqlGenConfig } from 'graphql-codegen-common';
+import * as commander from 'commander';
 import * as path from 'path';
 import * as fs from 'fs';
-import { scanForTemplatesInPath } from './loaders/templates-scanner';
-import {
-  EInputType,
-  GeneratorConfig,
-  getGeneratorConfig
-} from 'graphql-codegen-generators';
 import * as mkdirp from 'mkdirp';
+import { getCompiler } from './get-compiler';
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
@@ -39,19 +30,6 @@ export interface CLIOptions {
   schema?: any;
   documents?: any;
   config?: string;
-}
-
-interface GqlGenConfig {
-  flattenTypes?: boolean;
-  primitives?: {
-    String: string;
-    Int: string;
-    Float: string;
-    Boolean: string;
-    ID: string;
-  };
-  customHelpers?: { [helperName: string]: string };
-  generatorConfig?: { [configName: string]: any };
 }
 
 function collect(val, memo) {
@@ -106,7 +84,7 @@ export const validateCliOptions = (options: CLIOptions) => {
   }
 };
 
-export const executeWithOptions = async (options: CLIOptions): Promise<FileOutput[]> => {
+export const executeWithOptions = async (options: CLIOptions): Promise<CodegenOutput[]> => {
   validateCliOptions(options);
 
   const file: string = options.file;
@@ -147,21 +125,18 @@ export const executeWithOptions = async (options: CLIOptions): Promise<FileOutpu
   });
 
   const transformedDocuments = transformDocument(graphQlSchema, loadDocumentsSources(await documentsFromGlobs(documents)));
-  let templateConfig: GeneratorConfig = null;
+
+  let compiler: any;
 
   if (template && template !== '') {
     debugLog(`[executeWithOptions] using template: ${template}`);
-    templateConfig = getGeneratorConfig(template);
-
-    if (!templateConfig) {
-      throw new Error(`Unknown template: ${template}!`);
-    }
+    compiler = getCompiler(template);
   }
 
-  debugLog(`[executeWithOptions] using project: ${project}`);
-
   const configPath = path.resolve(process.cwd(), gqlGenConfigFilePath);
-  let config: GqlGenConfig = null;
+  let config: GqlGenConfig = {
+    out,
+  };
 
   if (fs.existsSync(configPath)) {
     console.log('Loading config file from: ', configPath);
@@ -169,46 +144,47 @@ export const executeWithOptions = async (options: CLIOptions): Promise<FileOutpu
     debugLog(`[executeWithOptions] Got project config JSON: `, config);
   }
 
-  if (project && project !== '') {
-    if (config === null) {
-      throw new Error(`To use project feature, please specify --config path or create gql-gen.json in your project root!`);
-    }
+  // if (project && project !== '') {
+  //   if (config === null) {
+  //     throw new Error(`To use project feature, please specify --config path or create gql-gen.json in your project root!`);
+  //   }
+  //
+  //   const templates = scanForTemplatesInPath(project, ALLOWED_CUSTOM_TEMPLATE_EXT);
+  //   const resolvedHelpers: { [key: string]: Function } = {};
+  //
+  //   Object.keys(config.customHelpers || {}).map(helperName => {
+  //     const filePath = config.customHelpers[helperName];
+  //     const resolvedPath = path.isAbsolute(filePath) ? filePath : path.resolve(process.cwd(), filePath);
+  //
+  //     if (fs.existsSync(resolvedPath)) {
+  //       const requiredFile = require(resolvedPath);
+  //
+  //       if (requiredFile && requiredFile && typeof requiredFile === 'function') {
+  //         resolvedHelpers[helperName] = requiredFile;
+  //       } else {
+  //         throw new Error(`Custom template file ${resolvedPath} does not have a default export function!`);
+  //       }
+  //     } else {
+  //       throw new Error(`Custom template file ${helperName} does not exists in path: ${resolvedPath}`);
+  //     }
+  //   });
+  //
+  //   templateConfig = {
+  //     inputType: EInputType.PROJECT,
+  //     templates,
+  //     flattenTypes: config.flattenTypes,
+  //     primitives: config.primitives,
+  //     customHelpers: resolvedHelpers,
+  //   };
+  // }
 
-    const templates = scanForTemplatesInPath(project, ALLOWED_CUSTOM_TEMPLATE_EXT);
-    const resolvedHelpers: { [key: string]: Function } = {};
-
-    Object.keys(config.customHelpers || {}).map(helperName => {
-      const filePath = config.customHelpers[helperName];
-      const resolvedPath = path.isAbsolute(filePath) ? filePath : path.resolve(process.cwd(), filePath);
-
-      if (fs.existsSync(resolvedPath)) {
-        const requiredFile = require(resolvedPath);
-
-        if (requiredFile && requiredFile && typeof requiredFile === 'function') {
-          resolvedHelpers[helperName] = requiredFile;
-        } else {
-          throw new Error(`Custom template file ${resolvedPath} does not have a default export function!`);
-        }
-      } else {
-        throw new Error(`Custom template file ${helperName} does not exists in path: ${resolvedPath}`);
-      }
-    });
-
-    templateConfig = {
-      inputType: EInputType.PROJECT,
-      templates,
-      flattenTypes: config.flattenTypes,
-      primitives: config.primitives,
-      customHelpers: resolvedHelpers,
-    };
-  }
-
-  templateConfig.config = config ? (config.generatorConfig || {}) : {};
-
-  return compileTemplate(templateConfig, context, [transformedDocuments], {
-    generateSchema,
-    generateDocuments,
-  }).map((item: FileOutput) => {
+  return compileTemplate(
+    config,
+    context,
+    [transformedDocuments],
+    { generateSchema, generateDocuments },
+    compiler,
+  ).map((item: CodegenOutput) => {
     let resultName = item.filename;
 
     if (!path.isAbsolute(resultName)) {

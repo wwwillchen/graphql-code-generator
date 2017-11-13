@@ -1,0 +1,31 @@
+{
+  "name": "codegen-handlebars-utils",
+  "version": "0.8.14",
+  "description": "Handlebars utils for GraphQL Codegen templates",
+  "license": "MIT",
+  "scripts": {
+    "test": "",
+    "build": "tsc"
+  },
+  "peerDependencies": {
+    "handlebars": "^4.0.11",
+    "graphql-codegen-common": "0.8.14"
+  },
+  "devDependencies": {
+    "@types/handlebars": "^4.0.36",
+    "handlebars": "^4.0.11",
+    "typescript": "^2.4.1",
+    "graphql-codegen-common": "0.8.14"
+  },
+  "main": "./dist/index.js",
+  "typings": "dist/index.d.ts",
+  "typescript": {
+    "definition": "dist/index.d.ts"
+  },
+  "dependencies": {
+    "@types/change-case": "^2.3.1",
+    "@types/common-tags": "^1.4.0",
+    "change-case": "^3.0.1",
+    "common-tags": "^1.4.0"
+  }
+}

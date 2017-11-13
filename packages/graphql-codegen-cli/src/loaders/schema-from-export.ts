@@ -1,5 +1,5 @@
-import * as fs from 'fs';
 import { GraphQLSchema } from 'graphql-codegen-core';
+import * as fs from 'fs';
 import * as path from 'path';
 
 export const schemaFromExport = (file: string): Promise<GraphQLSchema> => {

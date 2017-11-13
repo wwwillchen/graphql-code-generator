@@ -1,7 +1,6 @@
 import { GraphQLInputObjectType, GraphQLObjectType, GraphQLSchema } from 'graphql';
 import { resolveFields } from './transform-fields';
-import { Type } from '../types';
-import { debugLog } from '../debugging';
+import { Type, debugLog } from 'graphql-codegen-common';
 import { getDirectives } from '../utils/get-directives';
 
 export function transformGraphQLObject(schema: GraphQLSchema, object: GraphQLObjectType | GraphQLInputObjectType): Type {

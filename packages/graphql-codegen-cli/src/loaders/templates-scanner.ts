@@ -1,7 +1,7 @@
 import * as path from 'path';
 import * as glob from 'glob';
 import * as fs from 'fs';
-import { debugLog } from 'graphql-codegen-core';
+import { debugLog } from 'graphql-codegen-common';
 
 export function scanForTemplatesInPath(dirPath: string, fileExtensions: string[]): { [templateName: string]: string } {
   const absolutePath = path.resolve(process.cwd(), dirPath);

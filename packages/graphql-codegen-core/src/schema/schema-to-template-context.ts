@@ -3,18 +3,17 @@ import {
   GraphQLNamedType, GraphQLObjectType, GraphQLScalarType,
   GraphQLSchema, GraphQLUnionType,
 } from 'graphql';
-import { Directive, SchemaTemplateContext } from '../types';
+import { SchemaTemplateContext, debugLog } from 'graphql-codegen-common';
 import { objectMapToArray } from '../utils/object-map-to-array';
 import { transformGraphQLObject } from './transform-object';
 import { transformGraphQLEnum } from './transform-enum';
 import { transformUnion } from './transform-union';
 import { transformInterface } from './transform-interface';
 import { transformScalar } from './transform-scalar';
-import { debugLog } from '../debugging';
 import { transformDirectives } from './transform-directives';
 import { getDirectives } from '../utils/get-directives';
 
-const GRAPHQL_PRIMITIVES = ['String', 'Int', 'Boolean', 'ID', 'Float'];
+const GRAPHQL_PRIMITIVES: string[] = ['String', 'Int', 'Boolean', 'ID', 'Float'];
 type GraphQLTypesMap = { [typeName: string]: GraphQLNamedType };
 
 const clearTypes = (typesMap: GraphQLTypesMap): GraphQLTypesMap => Object.keys(typesMap)
