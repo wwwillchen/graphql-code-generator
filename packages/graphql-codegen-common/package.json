@@ -4,10 +4,16 @@
   "description": "TypeScript Typings template for GraphQL Code Generator",
   "license": "MIT",
   "scripts": {
+    "lint": "tslint --fix src/**/*.ts",
     "test": "",
     "build": "tsc"
   },
   "devDependencies": {
+    "@types/common-tags": "^1.4.0",
+    "@types/jest": "^21.1.6",
+    "common-tags": "^1.4.0",
+    "jest": "^21.2.1",
+    "tslint": "^5.8.0",
     "typescript": "^2.4.1"
   },
   "main": "./dist/index.js",

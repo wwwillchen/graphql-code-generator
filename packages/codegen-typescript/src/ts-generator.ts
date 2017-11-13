@@ -6,6 +6,7 @@ import {
   debugLog,
   SchemaTemplateContext,
   GqlGenConfig,
+  flattenTypes,
 } from 'graphql-codegen-common';
 import { handleMultiple, MULTIPLE_FILES_TEMPLATES } from './templates/typescript-multi-file';
 import * as moment from 'moment';
@@ -17,6 +18,7 @@ import { TypeScriptGeneratorConfig } from './types';
 
 export function compile(config: GqlGenConfig, settings: Settings, document: Document, templateContext: SchemaTemplateContext): CodegenOutput[] {
   const schemaContext = (!settings.generateSchema) ? prepareSchemaForDocumentsOnly(templateContext) : templateContext;
+  const flattenDocument = flattenTypes(document);
 
   let templates = SINGLE_FILE_TEMPLATE;
 
@@ -39,8 +41,8 @@ export function compile(config: GqlGenConfig, settings: Settings, document: Docu
   };
 
   if (config.generatorConfig.multipleFiles) {
-    return handleMultiple(compilationContext, document);
+    return handleMultiple(compilationContext, flattenDocument);
   } else {
-    return handleSingle(compilationContext, document, (config.out === './' || config.out === '') ? './types.d.ts' : config.out);
+    return handleSingle(compilationContext, flattenDocument, (config.out === './' || config.out === '') ? './types.d.ts' : config.out);
   }
 }

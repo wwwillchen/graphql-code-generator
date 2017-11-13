@@ -14,7 +14,12 @@ import {
   GeneratorConfig
 } from 'graphql-codegen-common';
 
-function handleSchema(compiledTemplate: Function, schemaContext: SchemaTemplateContext, documents: Document, extraConfig: GeneratorConfig, fileExtension: string, prefixAndPath = ''): CodegenOutput[] {
+function handleSchema(compiledTemplate: Function,
+                      schemaContext: SchemaTemplateContext,
+                      documents: Document,
+                      extraConfig: GeneratorConfig,
+                      fileExtension: string,
+                      prefixAndPath = ''): CodegenOutput[] {
   debugLog(`[handleSchema] called`);
 
   return [{
@@ -26,7 +31,12 @@ function handleSchema(compiledTemplate: Function, schemaContext: SchemaTemplateC
   }];
 }
 
-function handleAll(compiledTemplate: Function, schemaContext: SchemaTemplateContext, documents: Document, extraConfig: GeneratorConfig, fileExtension: string, prefixAndPath = ''): CodegenOutput[] {
+function handleAll(compiledTemplate: Function,
+                   schemaContext: SchemaTemplateContext,
+                   documents: Document,
+                   extraConfig: GeneratorConfig,
+                   fileExtension: string,
+                   prefixAndPath = ''): CodegenOutput[] {
   debugLog(`[handleAll] called`);
 
   return [{
@@ -42,7 +52,12 @@ function handleAll(compiledTemplate: Function, schemaContext: SchemaTemplateCont
   }];
 }
 
-function handleDocuments(compiledTemplate: Function, schemaContext: SchemaTemplateContext, documents: Document, extraConfig: GeneratorConfig, fileExtension: string, prefixAndPath = ''): CodegenOutput[] {
+function handleDocuments(compiledTemplate: Function,
+                         schemaContext: SchemaTemplateContext,
+                         documents: Document,
+                         extraConfig: GeneratorConfig,
+                         fileExtension: string,
+                         prefixAndPath = ''): CodegenOutput[] {
   debugLog(`[handleDocuments] called`);
 
   return [{
@@ -57,7 +72,12 @@ function handleDocuments(compiledTemplate: Function, schemaContext: SchemaTempla
   }];
 }
 
-function handleType(compiledTemplate: Function, schemaContext: SchemaTemplateContext, documents: Document, extraConfig: GeneratorConfig, fileExtension: string, prefixAndPath = ''): CodegenOutput[] {
+function handleType(compiledTemplate: Function,
+                    schemaContext: SchemaTemplateContext,
+                    documents: Document,
+                    extraConfig: GeneratorConfig,
+                    fileExtension: string,
+                    prefixAndPath = ''): CodegenOutput[] {
   debugLog(`[handleType] called`);
 
   return schemaContext.types.map((type: Type) => ({
@@ -69,7 +89,12 @@ function handleType(compiledTemplate: Function, schemaContext: SchemaTemplateCon
   }));
 }
 
-function handleInputType(compiledTemplate: Function, schemaContext: SchemaTemplateContext, documents: Document, extraConfig: GeneratorConfig, fileExtension: string, prefixAndPath = ''): CodegenOutput[] {
+function handleInputType(compiledTemplate: Function,
+                         schemaContext: SchemaTemplateContext,
+                         documents: Document,
+                         extraConfig: GeneratorConfig,
+                         fileExtension: string,
+                         prefixAndPath = ''): CodegenOutput[] {
   debugLog(`[handleInputType] called`);
 
   return schemaContext.inputTypes.map((type: Type) => ({
@@ -81,7 +106,12 @@ function handleInputType(compiledTemplate: Function, schemaContext: SchemaTempla
   }));
 }
 
-function handleUnion(compiledTemplate: Function, schemaContext: SchemaTemplateContext, documents: Document, extraConfig: GeneratorConfig, fileExtension: string, prefixAndPath = ''): CodegenOutput[] {
+function handleUnion(compiledTemplate: Function,
+                     schemaContext: SchemaTemplateContext,
+                     documents: Document,
+                     extraConfig: GeneratorConfig,
+                     fileExtension: string,
+                     prefixAndPath = ''): CodegenOutput[] {
   debugLog(`[handleUnion] called`);
 
   return schemaContext.unions.map((union: Union) => ({
@@ -93,7 +123,12 @@ function handleUnion(compiledTemplate: Function, schemaContext: SchemaTemplateCo
   }));
 }
 
-function handleEnum(compiledTemplate: Function, schemaContext: SchemaTemplateContext, documents: Document, extraConfig: GeneratorConfig, fileExtension: string, prefixAndPath = ''): CodegenOutput[] {
+function handleEnum(compiledTemplate: Function,
+                    schemaContext: SchemaTemplateContext,
+                    documents: Document,
+                    extraConfig: GeneratorConfig,
+                    fileExtension: string,
+                    prefixAndPath = ''): CodegenOutput[] {
   debugLog(`[handleEnum] called`);
 
   return schemaContext.enums.map((en: Enum) => ({
@@ -105,7 +140,12 @@ function handleEnum(compiledTemplate: Function, schemaContext: SchemaTemplateCon
   }));
 }
 
-function handleScalar(compiledTemplate: Function, schemaContext: SchemaTemplateContext, documents: Document, extraConfig: GeneratorConfig, fileExtension: string, prefixAndPath = ''): CodegenOutput[] {
+function handleScalar(compiledTemplate: Function,
+                      schemaContext: SchemaTemplateContext,
+                      documents: Document,
+                      extraConfig: GeneratorConfig,
+                      fileExtension: string,
+                      prefixAndPath = ''): CodegenOutput[] {
   debugLog(`[handleScalar] called`);
 
   return schemaContext.scalars.map((scalar: Scalar) => ({
@@ -117,7 +157,12 @@ function handleScalar(compiledTemplate: Function, schemaContext: SchemaTemplateC
   }));
 }
 
-function handleInterface(compiledTemplate: Function, schemaContext: SchemaTemplateContext, documents: Document, extraConfig: GeneratorConfig, fileExtension: string, prefixAndPath = ''): CodegenOutput[] {
+function handleInterface(compiledTemplate: Function,
+                         schemaContext: SchemaTemplateContext,
+                         documents: Document,
+                         extraConfig: GeneratorConfig,
+                         fileExtension: string,
+                         prefixAndPath = ''): CodegenOutput[] {
   debugLog(`[handleInterface] called`);
 
   return schemaContext.interfaces.map((inf: Interface) => ({
@@ -129,7 +174,12 @@ function handleInterface(compiledTemplate: Function, schemaContext: SchemaTempla
   }));
 }
 
-function handleOperation(compiledTemplate: Function, schemaContext: SchemaTemplateContext, documents: Document, extraConfig: GeneratorConfig, fileExtension: string, prefixAndPath = ''): CodegenOutput[] {
+function handleOperation(compiledTemplate: Function,
+                         schemaContext: SchemaTemplateContext,
+                         documents: Document,
+                         extraConfig: GeneratorConfig,
+                         fileExtension: string,
+                         prefixAndPath = ''): CodegenOutput[] {
   debugLog(`[handleOperation] called`);
 
   return documents.operations.map((operation: Operation) => ({
@@ -141,7 +191,12 @@ function handleOperation(compiledTemplate: Function, schemaContext: SchemaTempla
   }));
 }
 
-function handleFragment(compiledTemplate: Function, schemaContext: SchemaTemplateContext, documents: Document, extraConfig: GeneratorConfig, fileExtension: string, prefixAndPath = ''): CodegenOutput[] {
+function handleFragment(compiledTemplate: Function,
+                        schemaContext: SchemaTemplateContext,
+                        documents: Document,
+                        extraConfig: GeneratorConfig,
+                        fileExtension: string,
+                        prefixAndPath = ''): CodegenOutput[] {
   debugLog(`[handleFragment] called`);
 
   return documents.fragments.map((fragment: Fragment) => ({

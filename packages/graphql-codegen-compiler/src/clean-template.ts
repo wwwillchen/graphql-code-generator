@@ -1,6 +1,6 @@
 import { debugLog } from 'graphql-codegen-common';
 
-export function cleanTemplateComments(template: string, debugFilename: string = ''): string {
+export function cleanTemplateComments(template: string, debugFilename = ''): string {
   debugLog(`[cleanTemplateComments] called, looking for magic comments in ${debugFilename}...`);
 
   if (template.match(/\/\*\s*gqlgen/ig)) {

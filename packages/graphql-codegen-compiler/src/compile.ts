@@ -8,7 +8,6 @@ import {
   GeneratorConfig,
   CodegenOutput,
   OutputProcessorFn,
-  flattenTypes,
 } from 'graphql-codegen-common';
 
 export const DEFAULT_SETTINGS: Settings = {
@@ -16,7 +15,11 @@ export const DEFAULT_SETTINGS: Settings = {
   generateDocuments: true,
 };
 
-export function compileTemplate(config: GeneratorConfig, templateContext: SchemaTemplateContext, documents: Document[] = [], settings: Settings = DEFAULT_SETTINGS, outputProcessor: OutputProcessorFn): CodegenOutput[] {
+export function compileTemplate(config: GeneratorConfig,
+                                templateContext: SchemaTemplateContext,
+                                documents: Document[] = [],
+                                settings: Settings = DEFAULT_SETTINGS,
+                                outputProcessor: OutputProcessorFn): CodegenOutput[] {
   if (!config) {
     throw new Error(`compileTemplate requires a valid config object!`);
   }
@@ -47,9 +50,10 @@ export function compileTemplate(config: GeneratorConfig, templateContext: Schema
     }, { hasFragments: false, hasOperations: false, operations: [], fragments: [] } as Document);
 
     debugLog(
-      `[compileTemplate] all documents merged into single document, total of ${mergedDocuments.operations.length} operations and ${mergedDocuments.fragments.length} fragments`
+      `[compileTemplate] all documents merged into single document.
+      total of ${mergedDocuments.operations.length} operations and ${mergedDocuments.fragments.length} fragments`
     );
   }
 
-  return outputProcessor(config, settings, flattenTypes(mergedDocuments), templateContext);
+  return outputProcessor(config, settings, mergedDocuments, templateContext);
 }
