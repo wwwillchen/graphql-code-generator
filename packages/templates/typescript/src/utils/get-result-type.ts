@@ -21,9 +21,10 @@ export function getResultType(type, options) {
       result = `${result}${new Array(type.dimensionOfArray + 1).join('[]')}`;
     }
 
-    if (!type.isRequired) {
-      result = [result, 'null'].join(' | ');
-    }
+// NOTE: local wwwillchen patch; don't make it | null because it's already set as optional.
+//     if (!type.isRequired) {
+//       result = [result, 'null'].join(' | ');
+//     }
 
     return result;
   } else {
